@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
 
@@ -8,6 +8,7 @@ app = Flask(__name__)
 account_name = "sntrainingstorageaccount"
 file_system_name = "azurefiles"
 file_name = "Image1.jpg"
+
 
 # Azure AD Authentication
 credential = DefaultAzureCredential()
@@ -19,13 +20,14 @@ def get_datalake_service_client():
         credential=credential
     )
 
-# Access File from ADLS Gen2
+# Access File from ADLS Gen2 (directly from container)
 def read_file_from_adls():
     try:
         service_client = get_datalake_service_client()
         file_system_client = service_client.get_file_system_client(file_system_name)
         
-        file_client = directory_client.get_file_client(file_name)
+        # Since no directory, we access file directly from the container
+        file_client = file_system_client.get_file_client(file_name)
 
         download = file_client.download_file()
         content = download.readall().decode('utf-8')
