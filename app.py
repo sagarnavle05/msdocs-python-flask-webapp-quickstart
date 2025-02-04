@@ -11,7 +11,7 @@ file_name ="Image1.jpg" # The image file you want to read directly from the cont
 
 # Azure AD Authentication
 credential = DefaultAzureCredential()
-
+    
 # Create DataLakeServiceClient
 def get_datalake_service_client():
     return DataLakeServiceClient(
