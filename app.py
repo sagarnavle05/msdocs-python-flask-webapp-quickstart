@@ -36,7 +36,7 @@ def get_image_from_adls():
         return f"Error retrieving image: {e}"
 
 # Route to display image
-@app.route('/images')
+@app.route('/image')
 def serve_image():
     image_data = get_image_from_adls()  # Retrieve image from ADLS Gen2
     return Response(image_data, content_type='image/jpeg')  # Serve the image as a JPEG
@@ -44,7 +44,7 @@ def serve_image():
 # Home route to display the image in the template
 @app.route('/')
 def index():
-    return render_template('templates/index.html')  # You can add additional content here if necessary
+    return render_template('index.html')  # You can add additional content here if necessary
 
 if __name__ == '__main__':
     app.run(debug=True)
