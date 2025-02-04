@@ -7,7 +7,6 @@ app = Flask(__name__)
 # ADLS Gen2 Configuration
 account_name = "sntrainingstorageaccount"
 file_system_name = "azurefiles"
-directory_name = "your_directory_name"
 file_name = "Image1.jpg"
 
 # Azure AD Authentication
@@ -25,7 +24,7 @@ def read_file_from_adls():
     try:
         service_client = get_datalake_service_client()
         file_system_client = service_client.get_file_system_client(file_system_name)
-        directory_client = file_system_client.get_directory_client(directory_name)
+        
         file_client = directory_client.get_file_client(file_name)
 
         download = file_client.download_file()
